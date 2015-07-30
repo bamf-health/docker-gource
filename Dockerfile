@@ -1,15 +1,36 @@
-FROM dockerfile/ubuntu
+FROM ubuntu:14.04
 
-RUN apt-add-repository -y ppa:jon-severinsson/ffmpeg && \
-apt-get update && \
-apt-get install -y git mercurial xvfb xfonts-base xfonts-75dpi xfonts-100dpi xfonts-cyrillic gource ffmpeg
+# Update the repositories list and install software to add a PPA
+RUN apt-get update && \
+    apt-get install -y software-properties-common
 
-ADD ./gource_generator.bash /tmp/gource_generator.bash
+# Add the PPA with ffmpeg
+RUN apt-add-repository -y ppa:mc3man/trusty-media && \
+    apt-get update
 
+# Install required software
+RUN apt-get install -y git \
+                       mercurial \
+                       xvfb \
+                       xfonts-base \
+                       xfonts-75dpi \
+                       xfonts-100dpi \
+                       xfonts-cyrillic \
+                       gource \
+                       screen \
+                       ffmpeg
+
+# Add the init script
+ADD ./init.sh /tmp/init.sh
+
+# Set the default title
 ENV TITLE "Example title"
 
+# Mount volumes
 VOLUME ["/repoRoot", "/avatars", "/results"]
 
+# Set the working directory to where the git repository is stored
 WORKDIR /repoRoot
 
-CMD bash /tmp/gource_generator.bash
+# Run the init script by default
+CMD bash /tmp/init.sh
