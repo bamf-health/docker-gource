@@ -1,5 +1,8 @@
 FROM ubuntu:14.04
 
+# Set the reset cache variable
+ENV REFRESHED_AT 2015-07-30
+
 # Update the repositories list and install software to add a PPA
 RUN apt-get update && \
     apt-get install -y software-properties-common
@@ -33,4 +36,5 @@ VOLUME ["/repoRoot", "/avatars", "/results"]
 WORKDIR /repoRoot
 
 # Run the init script by default
-CMD bash /tmp/init.sh
+CMD [""]
+ENTRYPOINT ["/tmp/init.sh"]
