@@ -59,8 +59,8 @@ render () {
   rm -f /results/gource.ppm
 }
 
-# Check if any arguments were passed
-if [ $# -eq 0 ]; then
+# Check if any arguments were passed or if the passed argument is empty
+if [ $# -eq 0 -o -z "$1" ]; then
   echo "No arguments supplied. Expecting a volume mounted with the repository."
 
   # Start the rendering process
