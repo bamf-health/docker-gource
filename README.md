@@ -1,6 +1,6 @@
 # Docker Gource Image
 
-[Docker](https://www.docker.com) container that has the capability to generate [Gource](https://code.google.com/p/gource) videos in a headless environment.  
+[Docker](https://www.docker.com) container that has the capability to generate [Gource](https://code.google.com/p/gource) videos in a headless environment.
 
 ## Base Docker Image
 
@@ -14,15 +14,15 @@
 
 ### Build or Download Image
 
-Download [automated build](https://registry.hub.docker.com/u/czerasz/gource/) from public [Docker Hub Registry](https://registry.hub.docker.com/):
+Download [automated build](https://registry.hub.docker.com/u/twelvenights/gource/) from public [Docker Hub Registry](https://registry.hub.docker.com/):
 
-    docker pull czerasz/gource
+    docker pull twelvenights/gource
 
 Alternatively, you can build an image from the `Dockerfile`:
 
-    git clone git@github.com:czerasz/docker-gource.git
+    git clone git@github.com:twelvenights/docker-gource.git
     cd docker-gource
-    docker build -t czerasz/gource .  
+    docker build -t twelvenights/gource .
 
 ### Running
 
@@ -31,9 +31,9 @@ Alternatively, you can build an image from the `Dockerfile`:
                -v RESULTS_FOLDER:/results \
                -v AVATARS_FOLDER:/avatars \
                --env TITLE="My overridden title text" \
-               czerasz/gource
+               twelvenights/gource
 
-If you want repository usernames to be replaced with images then put images to avatars folder.  
+If you want repository usernames to be replaced with images then put images to avatars folder.
 Name for the avatar image must match the username (e.g taivokasper.png).
 
 ### Example: Automatically download Github repository
@@ -41,4 +41,4 @@ Name for the avatar image must match the username (e.g taivokasper.png).
     docker run --rm --name gource \
                -v $HOME/Videos/gource:/results \
                --env TITLE="Docker Evolution" \
-               czerasz/gource docker/docker
+               twelvenights/gource docker/docker

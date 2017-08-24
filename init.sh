@@ -38,7 +38,7 @@ prepare_github_repository () {
 }
 
 render () {
-  screen -dmS recording xvfb-run -a -s "-screen 0 ${RES}x${DEPTH}" gource "-$RES" -r 30 --title "$TITLE" --user-image-dir /avatars/ --highlight-all-users -s 0.5 --seconds-per-day ${SEC_PER_DAY:-1} --hide filenames -o /results/gource.ppm
+  screen -dmS recording xvfb-run -a -s "-screen 0 ${RES}x${DEPTH}" gource "-$RES" $EXTRAS -r 30 --title "$TITLE" --user-image-dir /avatars/ --highlight-all-users -s 0.5 --seconds-per-day ${SEC_PER_DAY:-1} --hide filenames -o /results/gource.ppm
 
   # This hack is needed because gource process doesn't stop
   lastsize="0"
