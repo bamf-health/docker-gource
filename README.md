@@ -2,6 +2,13 @@
 
 [Docker](https://www.docker.com) container that has the capability to generate [Gource](https://code.google.com/p/gource) videos in a headless environment.
 
+## Customizable Environment Variables
+Let me know if you would like more to be customizeable.
+
++ RES (default: 1920x1080)
++ DEPTH (default: 24)
++ TITLE (default: "")
+
 ## Base Docker Image
 
 - [ubuntu:14.04](https://registry.hub.docker.com/_/ubuntu/)
