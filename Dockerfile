@@ -5,14 +5,14 @@ ENV REFRESHED_AT 2015-07-30
 
 # Update the repositories list and install software to add a PPA
 RUN apt-get update && \
-    apt-get install -y software-properties-common
+    apt-get install -y software-properties-common && \
 
 # Add the PPA with ffmpeg
-RUN apt-add-repository -y ppa:mc3man/trusty-media && \
-    apt-get update
+    apt-add-repository -y ppa:mc3man/trusty-media && \
+    apt-get update && \
 
 # Install required software
-RUN apt-get install -y git \
+    apt-get install -y git \
                        mercurial \
                        xvfb \
                        xfonts-base \
