@@ -26,7 +26,7 @@ Let me know if you would like more to be customizeable.
 
 ### Build or Download Image
 
-Download [automated build](https://hub.docker.com/r/levsa/gource/) from public [Docker Hub Registry](https://hub.docker.com/):
+Download [docker image](https://hub.docker.com/r/levsa/gource/) from public [Docker Hub Registry](https://hub.docker.com/):
 
     docker pull levsa/gource
 
