@@ -2,6 +2,11 @@
 
 [Docker](https://www.docker.com) container that has the capability to generate [Gource](https://code.google.com/p/gource) videos in a headless environment.
 
+## Changes in this fork
+
+- Generate video on the fly from gource output without storing the huge intermediary ppm file, requires much less storage space.
+- Update to ubuntu 16.04 and fix broken install commands
+
 ## Customizable Environment Variables
 Let me know if you would like more to be customizeable.
 
@@ -11,7 +16,7 @@ Let me know if you would like more to be customizeable.
 
 ## Base Docker Image
 
-- [ubuntu:14.04](https://registry.hub.docker.com/_/ubuntu/)
+- [ubuntu:16.04](https://registry.hub.docker.com/_/ubuntu/)
 
 ## Requirements:
 
@@ -21,15 +26,15 @@ Let me know if you would like more to be customizeable.
 
 ### Build or Download Image
 
-Download [automated build](https://registry.hub.docker.com/u/twelvenights/gource/) from public [Docker Hub Registry](https://registry.hub.docker.com/):
+Download [automated build](https://hub.docker.com/r/levsa/gource/) from public [Docker Hub Registry](https://hub.docker.com/):
 
-    docker pull twelvenights/gource
+    docker pull levsa/gource
 
 Alternatively, you can build an image from the `Dockerfile`:
 
-    git clone git@github.com:twelvenights/docker-gource.git
+    git clone git@github.com:levsa/docker-gource.git
     cd docker-gource
-    docker build -t twelvenights/gource .
+    docker build -t levsa/gource .
 
 ### Running
 
@@ -38,7 +43,7 @@ Alternatively, you can build an image from the `Dockerfile`:
                -v RESULTS_FOLDER:/results \
                -v AVATARS_FOLDER:/avatars \
                --env TITLE="My overridden title text" \
-               twelvenights/gource
+               levsa/gource
 
 If you want repository usernames to be replaced with images then put images to avatars folder.
 Name for the avatar image must match the username (e.g taivokasper.png).
@@ -48,4 +53,4 @@ Name for the avatar image must match the username (e.g taivokasper.png).
     docker run --rm --name gource \
                -v $HOME/Videos/gource:/results \
                --env TITLE="Docker Evolution" \
-               twelvenights/gource docker/docker
+               levsa/gource docker/docker

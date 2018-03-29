@@ -1,17 +1,11 @@
-FROM ubuntu:14.04
+FROM ubuntu:16.04
 
 # Set the reset cache variable
-ENV REFRESHED_AT 2015-07-30
+ENV REFRESHED_AT 2018-03-29
 
 # Update the repositories list and install software to add a PPA
 RUN apt-get update && \
     apt-get install -y software-properties-common && \
-
-# Add the PPA with ffmpeg
-    apt-add-repository -y ppa:mc3man/trusty-media && \
-    apt-get update && \
-
-# Install required software
     apt-get install -y git \
                        mercurial \
                        xvfb \
