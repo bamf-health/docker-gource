@@ -1,7 +1,7 @@
 FROM ubuntu:21.04
 
 # Set the reset cache variable
-ENV REFRESHED_AT 2018-03-29
+ENV REFRESHED_AT 2021-09-03
 
 # Update the repositories list and install software to add a PPA
 RUN apt-get update && \
