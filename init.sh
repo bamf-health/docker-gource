@@ -57,15 +57,17 @@ render () {
 
 render_final () {
   if [ -s combined.log ]; then
+    HIDE=${HIDE:-mouse}
+
     xvfb-run -a -s "-screen 0 ${RES}x${DEPTH}" \
         gource "-$RES" \
           -r 30 \
           --title "$TITLE" \
           --user-image-dir /avatars/ \
           --highlight-all-users \
+          --hide "$HIDE" \
           -s 0.5 \
           --seconds-per-day .4 \
-          --hide dirnames,filenames \
           --font-size 25 \
           --font-colour FFFF00 \
           --user-scale 4.0 \
