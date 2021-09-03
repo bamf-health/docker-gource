@@ -34,10 +34,24 @@ prepare_github_repository () {
   fi
 
   # Download git repository
-  git clone "https://github.com/$repository_string.git" .
+  git clone "https://github.com/$repository_string.git" "${github_user}-${github_repository}"
 }
 
 render () {
+  for repo in */; do
+    repo=$(basename ${repo})
+    echo Processing "$repo"
+
+    gource --output-custom-log "${repo}.txt" "$repo"
+  done
+
+  cat -- *.txt | sort -n > combined.log
+
+  render_final
+}
+
+render_final () {
+  if [ -s combined.log ]; then
     xvfb-run -a -s "-screen 0 ${RES}x${DEPTH}" \
         gource "-$RES" \
           -r 30 \
@@ -51,7 +65,7 @@ render () {
           --font-colour FFFF00 \
           --user-scale 4.0 \
           --auto-skip-seconds 1 \
-          -o - \
+          -o -  combined.log \
           | ffmpeg -y -r 30 -f image2pipe \
           -loglevel info \
           -vcodec ppm \
@@ -62,20 +76,19 @@ render () {
           -crf 1 \
           -threads 0 \
           -bf 0 /results/gource.mp4
+
+  fi
 }
 
 # Check if any arguments were passed or if the passed argument is empty
 if [ $# -eq 0 -o -z "$1" ]; then
   echo "No arguments supplied. Expecting a volume mounted with the repository."
-
-  # Start the rendering process
-  render
 else
-  # Parse the Github repository string and download the repository
-  prepare_github_repository $1
-
-  # Start the rendering process
-  render
-
-  mv /results/gource.mp4 "/results/$github_user-$github_repository.mp4"
+  # Parse the Github repository string(s) and download them
+  for repo in "$@"; do
+    prepare_github_repository $repo
+  done
 fi
+
+# Start the rendering process
+render
