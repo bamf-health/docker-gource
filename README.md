@@ -4,19 +4,21 @@
 
 ## Changes in this fork
 
-- Generate video on the fly from gource output without storing the huge intermediary ppm file, requires much less storage space.
-- Update to ubuntu 16.04 and fix broken install commands
+- Update to ubuntu 21.04
+- Process multiple repositories into one video
 
 ## Customizable Environment Variables
-Let me know if you would like more to be customizeable.
 
 + RES (default: 1920x1080)
 + DEPTH (default: 24)
 + TITLE (default: "")
++ HIDE - Gource --hide parameter (default: mouse)
++ PRESET - ffmpeg encoding preset (default: ultrafast)
++ HIDE_REPO - set to true to not add repo dir to paths (default: "")
 
 ## Base Docker Image
 
-- [ubuntu:16.04](https://registry.hub.docker.com/_/ubuntu/)
+- [ubuntu:21.04](https://registry.hub.docker.com/_/ubuntu/)
 
 ## Requirements:
 
@@ -24,33 +26,36 @@ Let me know if you would like more to be customizeable.
 
 ## Usage
 
-### Build or Download Image
+### Build Image
 
-Download [docker image](https://hub.docker.com/r/levsa/gource/) from public [Docker Hub Registry](https://hub.docker.com/):
+Build an image from the `Dockerfile` in this repository:
 
-    docker pull levsa/gource
-
-Alternatively, you can build an image from the `Dockerfile`:
-
-    git clone git@github.com:levsa/docker-gource.git
-    cd docker-gource
-    docker build -t levsa/gource .
+``` sh
+docker build -t local/gource .
+```
 
 ### Running
 
-    docker run --rm --name gource \
-               -v REPO_ROOT:/repoRoot \
-               -v RESULTS_FOLDER:/results \
-               -v AVATARS_FOLDER:/avatars \
-               --env TITLE="My overridden title text" \
-               levsa/gource
+The `gource.sh` script automates running the docker container with appropriate env vars and bind mounts.
 
-If you want repository usernames to be replaced with images then put images to avatars folder.
-Name for the avatar image must match the username (e.g taivokasper.png).
+It mounts `./avatars` for providing user avatars in the visualization and `./results` to output the finished `gource.mp4`.
 
-### Example: Automatically download Github repository
+The customizable environment variables above can be set when running `gource.sh` to configure Gource.
 
-    docker run --rm --name gource \
-               -v $HOME/Videos/gource:/results \
-               --env TITLE="Docker Evolution" \
-               levsa/gource docker/docker
+### Visualizing local repositories
+
+``` sh
+./gource.sh /path/to/repo1 /path/to/repo2
+```
+
+### Visualizing Github repositories
+
+``` sh
+./gource.sh acaudwell/gource
+```
+
+### Visualizing a mix of local & Github repositories
+
+``` sh
+./gource.sh acaudwell/gource /path/to/local-repo
+```
