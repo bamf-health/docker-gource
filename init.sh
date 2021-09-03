@@ -43,6 +43,11 @@ render () {
     echo Processing "$repo"
 
     gource --output-custom-log "${repo}.txt" "$repo"
+    # Unless HIDE_REPO is non-empty, include the repo dir in the log
+    if [ -z "$HIDE_REPO" ]; then
+      echo inserting repo dirname
+      sed -ibak -r "s#(.+)\|#\1|/${repo}#" "${repo}.txt"
+    fi
   done
 
   cat -- *.txt | sort -n > combined.log
