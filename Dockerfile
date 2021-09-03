@@ -1,4 +1,4 @@
-FROM ubuntu:16.04
+FROM ubuntu:21.04
 
 # Set the reset cache variable
 ENV REFRESHED_AT 2018-03-29
