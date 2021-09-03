@@ -58,6 +58,7 @@ render () {
 render_final () {
   if [ -s combined.log ]; then
     HIDE=${HIDE:-mouse}
+    TITLE="${TITLE:- }"
 
     xvfb-run -a -s "-screen 0 ${RES}x${DEPTH}" \
         gource "-$RES" \
