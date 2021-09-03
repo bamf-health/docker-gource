@@ -79,7 +79,7 @@ render_final () {
           -vcodec ppm \
           -i - \
           -vcodec libx264 \
-          -preset ultrafast \
+          -preset ${PRESET:-ultrafast} \
           -pix_fmt yuv420p \
           -crf 1 \
           -threads 0 \
